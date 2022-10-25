@@ -30,14 +30,27 @@ const producto3 = {
 function calculoTotalProductos(productos) {
     let acumuladorPrecio = 0;
     for (let i = 0; i < productos.length; i++) {
+
         if (productos[i].cantidadDisponible != 0) {
             acumuladorPrecio += productos[i].precio;
         } else {
             // En el caso de que no haya stock muestro un mensaje para el usuario
-            alert("Del producto seleccionado" + " " + productos[i].nombre + " " + "No es posible sumar porquen no queda stock")
+            alert(`Del producto seleccionado ->  ${productos[i].nombre}  No es posible sumar porquen no queda stock`)
         }
     }
     return acumuladorPrecio;
+}
+
+// Modularice un poco para mostar los productos baratos en el caso de que el usuario lo desee
+
+function mostrarProductosBaratos(productosBaratos) {
+    for (let i = 0; i < productosBaratos.length; i++) {
+        alert(`Nombre De Producto : ${productosBaratos[i].nombre} 
+                    Precio De Producto : $ ${productosBaratos[i].precio}
+                    Stock Disponible del producto : ${productosBaratos[i].cantidadDisponible}
+        `)
+
+    }
 }
 
 
@@ -45,6 +58,18 @@ function calculoTotalProductos(productos) {
 // No se si se podia pero genere un array con productos para que se me haga mas facil y mandar todos juntos
 
 let arrayProductos = [producto1, producto2, producto3];
+
+// Filtro los productos baratos 
+
+let productosBaratos = arrayProductos.filter((producto) => producto.precio < 10000);
 let precioTotal = calculoTotalProductos(arrayProductos);
+do {
+    let respuesta = prompt("¿Le gustaria conocer los productos baratos? En el caso de querer presione S y para salir presione una N  ");
+    if (respuesta == 'S' || respuesta == 's') {
+        mostrarProductosBaratos(productosBaratos);
+    }
+} while (respuesta == 'n' || respuesta == 'N')
+
 alert("El precio total de los productos es de : " + " " + precioTotal);
+
 
